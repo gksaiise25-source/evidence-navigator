@@ -96,7 +96,7 @@ function AiPage() {
         {answers.map((a) => (
           <Panel key={a.id} title={a.question} subtitle={`${a.engine} · ${fmt(a.createdAt)}`}>
             <div className="flex flex-wrap items-center gap-2">
-              <Tag tone={a.status === "ANSWERED" ? "ok" : "warn"}>{a.status}</Tag>
+              <Tag tone={a.status === "ANSWERED" ? "green" : "warn"}>{a.status}</Tag>
               <span className="mono-xs text-muted-foreground">confidence {(a.confidence * 100).toFixed(0)}%</span>
               <button onClick={() => setTrace(trace === a.id ? null : a.id)} className="mono-xs ml-auto rounded border border-border px-2 py-1 hover:text-primary">
                 WHY?

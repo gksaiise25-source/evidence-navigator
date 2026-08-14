@@ -25,13 +25,13 @@ function ContradictionsPage() {
       ) : (
         <div className="space-y-3">
           {bundle.contradictions.map((c) => (
-            <Panel key={c.id} title={c.label} subtitle={c.kind}>
-              <p className="text-sm">{c.detail}</p>
+            <Panel key={c.id} title={c.summary} subtitle={c.kind}>
+              
               <div className="mono-xs mt-2 grid gap-2 sm:grid-cols-2">
-                <div className="rounded border border-border/60 p-2"><p className="text-muted-foreground">SIDE A</p><p>{c.sideA}</p></div>
-                <div className="rounded border border-border/60 p-2"><p className="text-muted-foreground">SIDE B</p><p>{c.sideB}</p></div>
+                <div className="rounded border border-border/60 p-2"><p className="text-muted-foreground">SIDE A</p><p>{c.sideA.label} · {c.sideA.detail} · {c.sideA.evidenceId}</p></div>
+                <div className="rounded border border-border/60 p-2"><p className="text-muted-foreground">SIDE B</p><p>{c.sideB.label} · {c.sideB.detail} · {c.sideB.evidenceId}</p></div>
               </div>
-              <p className="mono-xs mt-2 text-cyber-dim">{c.evidenceIds.join(", ")}</p>
+              <p className="mono-xs mt-2 text-cyber-dim">{[c.sideA.evidenceId, c.sideB.evidenceId].join(", ")}</p>
             </Panel>
           ))}
         </div>

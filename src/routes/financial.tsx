@@ -31,12 +31,12 @@ function FinancialPage() {
               </thead>
               <tbody>
                 {bundle.payments.map((p) => (
-                  <tr key={p.artifactId} className="border-t border-border/50">
+                  <tr key={p.evidenceId} className="border-t border-border/50">
                     <td className="mono-xs py-1.5 pr-3">{fmt(p.ts)}</td>
                     <td className="mono-xs py-1.5 pr-3">{p.amount === null ? "unrecorded" : p.amount}</td>
-                    <td className="mono-xs py-1.5 pr-3">{p.vpa ?? p.counterparty ?? "unrecorded"}</td>
+                    <td className="mono-xs py-1.5 pr-3">{p.vpaTo ?? p.vpaFrom ?? p.merchant ?? "unrecorded"}</td>
                     <td className="mono-xs py-1.5 pr-3">{p.txnId ?? "unrecorded"}</td>
-                    <td className="mono-xs py-1.5 pr-3 text-cyber-dim">{p.artifactId}</td>
+                    <td className="mono-xs py-1.5 pr-3 text-cyber-dim">{p.evidenceId}</td>
                   </tr>
                 ))}
               </tbody>
@@ -49,9 +49,9 @@ function FinancialPage() {
           <p className="text-sm text-muted-foreground">No correlation is supported by the available financial evidence.</p>
         ) : (
           <ul className="space-y-2">
-            {bundle.bankCorrelations.map((c, i) => (
-              <li key={i} className="rounded border border-border/60 p-2">
-                <p className="text-sm">{c.label}</p>
+            {bundle.bankCorrelations.map((c) => (
+              <li key={c.id} className="rounded border border-border/60 p-2">
+                <p className="text-sm">{c.subject} — {c.result}</p>
                 <p className="mono-xs mt-1 text-muted-foreground">{c.detail}</p>
                 <p className="mono-xs mt-1 text-cyber-dim">{c.evidenceIds.join(", ")}</p>
               </li>
