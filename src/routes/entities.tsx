@@ -31,7 +31,7 @@ function EntitiesPage() {
   if (!bundle) return <NoCase />;
   const kinds = [...new Set(bundle.entities.map((e) => e.kind))];
   const selected = bundle.entities.find((e) => e.id === sel) ?? null;
-  const selLinks = selected ? bundle.links.filter((l) => l.a === selected.id || l.b === selected.id) : [];
+  const selLinks = selected ? bundle.links.filter((l) => l.from === selected.id || l.to === selected.id) : [];
 
   return (
     <div>
@@ -76,7 +76,7 @@ function EntitiesPage() {
                 <p className="text-sm text-muted-foreground">No cross-modal link is supported by the available evidence.</p>
               ) : (
                 selLinks.map((l) => {
-                  const other = bundle.entities.find((x) => x.id === (l.a === selected.id ? l.b : l.a));
+                  const other = bundle.entities.find((x) => x.id === (l.from === selected.id ? l.to : l.from));
                   const verdict = bundle.verdicts[l.id];
                   return (
                     <div key={l.id} className="rounded border border-border/60 p-2">
@@ -84,9 +84,9 @@ function EntitiesPage() {
                         <StatusPill status={l.status} />
                         <span className="text-sm">{other?.label ?? "unknown"}</span>
                       </div>
-                      <p className="mono-xs mt-1 text-muted-foreground">{l.reason}</p>
+                      <p className="mono-xs mt-1 text-muted-foreground">{l.method} · {l.type} · confidence {(l.confidence * 100).toFixed(0)}%</p>
                       <p className="mono-xs mt-1 text-cyber-dim">{l.evidenceIds.slice(0, 6).join(", ")}</p>
-                      {verdict && <p className="mono-xs mt-1 text-primary">HUMAN VERDICT: {verdict.verdict}</p>}
+                      {verdict && <p className="mono-xs mt-1 text-primary">HUMAN VERDICT: {verdict}</p>}
                     </div>
                   );
                 })
