@@ -21,6 +21,7 @@ import { Route as GraphRouteImport } from './routes/graph'
 import { Route as ImportRouteImport } from './routes/import'
 import { Route as MissingRouteImport } from './routes/missing'
 import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
@@ -83,6 +84,11 @@ const ReportsRoute = ReportsRouteImport.update({
   path: '/reports',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TimelineRoute = TimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/import': typeof ImportRoute
   '/missing': typeof MissingRoute
   '/reports': typeof ReportsRoute
+  '/settings': typeof SettingsRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/import': typeof ImportRoute
   '/missing': typeof MissingRoute
   '/reports': typeof ReportsRoute
+  '/settings': typeof SettingsRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
@@ -133,6 +141,7 @@ export interface FileRoutesById {
   '/import': typeof ImportRoute
   '/missing': typeof MissingRoute
   '/reports': typeof ReportsRoute
+  '/settings': typeof SettingsRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
@@ -150,6 +159,7 @@ export interface FileRouteTypes {
     | '/import'
     | '/missing'
     | '/reports'
+    | '/settings'
     | '/timeline'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
     | '/import'
     | '/missing'
     | '/reports'
+    | '/settings'
     | '/timeline'
   id:
     | '__root__'
@@ -180,6 +191,7 @@ export interface FileRouteTypes {
     | '/import'
     | '/missing'
     | '/reports'
+    | '/settings'
     | '/timeline'
   fileRoutesById: FileRoutesById
 }
@@ -196,6 +208,7 @@ export interface RootRouteChildren {
   ImportRoute: typeof ImportRoute
   MissingRoute: typeof MissingRoute
   ReportsRoute: typeof ReportsRoute
+  SettingsRoute: typeof SettingsRoute
   TimelineRoute: typeof TimelineRoute
 }
 
@@ -285,6 +298,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/timeline': {
       id: '/timeline'
       path: '/timeline'
@@ -308,6 +328,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImportRoute: ImportRoute,
   MissingRoute: MissingRoute,
   ReportsRoute: ReportsRoute,
+  SettingsRoute: SettingsRoute,
   TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
