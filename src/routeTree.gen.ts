@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EntitiesRouteImport } from './routes/entities'
 import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as ImportRouteImport } from './routes/import'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntitiesRoute = EntitiesRouteImport.update({
+  id: '/entities',
+  path: '/entities',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EvidenceRoute = EvidenceRouteImport.update({
@@ -31,30 +37,34 @@ const ImportRoute = ImportRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
   '/import': typeof ImportRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
   '/import': typeof ImportRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
   '/import': typeof ImportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/evidence' | '/import'
+  fullPaths: '/' | '/entities' | '/evidence' | '/import'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/evidence' | '/import'
-  id: '__root__' | '/' | '/evidence' | '/import'
+  to: '/' | '/entities' | '/evidence' | '/import'
+  id: '__root__' | '/' | '/entities' | '/evidence' | '/import'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EntitiesRoute: typeof EntitiesRoute
   EvidenceRoute: typeof EvidenceRoute
   ImportRoute: typeof ImportRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entities': {
+      id: '/entities'
+      path: '/entities'
+      fullPath: '/entities'
+      preLoaderRoute: typeof EntitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/evidence': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EntitiesRoute: EntitiesRoute,
   EvidenceRoute: EvidenceRoute,
   ImportRoute: ImportRoute,
 }
