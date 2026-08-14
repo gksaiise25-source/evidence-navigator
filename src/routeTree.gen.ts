@@ -10,13 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContradictionsRouteImport } from './routes/contradictions'
 import { Route as EntitiesRouteImport } from './routes/entities'
 import { Route as EvidenceRouteImport } from './routes/evidence'
+import { Route as EvolutionRouteImport } from './routes/evolution'
+import { Route as FinancialRouteImport } from './routes/financial'
+import { Route as GeoRouteImport } from './routes/geo'
+import { Route as GraphRouteImport } from './routes/graph'
 import { Route as ImportRouteImport } from './routes/import'
+import { Route as MissingRouteImport } from './routes/missing'
+import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContradictionsRoute = ContradictionsRouteImport.update({
+  id: '/contradictions',
+  path: '/contradictions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EntitiesRoute = EntitiesRouteImport.update({
@@ -29,44 +42,148 @@ const EvidenceRoute = EvidenceRouteImport.update({
   path: '/evidence',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EvolutionRoute = EvolutionRouteImport.update({
+  id: '/evolution',
+  path: '/evolution',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinancialRoute = FinancialRouteImport.update({
+  id: '/financial',
+  path: '/financial',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GeoRoute = GeoRouteImport.update({
+  id: '/geo',
+  path: '/geo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GraphRoute = GraphRouteImport.update({
+  id: '/graph',
+  path: '/graph',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ImportRoute = ImportRouteImport.update({
   id: '/import',
   path: '/import',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MissingRoute = MissingRouteImport.update({
+  id: '/missing',
+  path: '/missing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contradictions': typeof ContradictionsRoute
   '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
+  '/evolution': typeof EvolutionRoute
+  '/financial': typeof FinancialRoute
+  '/geo': typeof GeoRoute
+  '/graph': typeof GraphRoute
   '/import': typeof ImportRoute
+  '/missing': typeof MissingRoute
+  '/reports': typeof ReportsRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contradictions': typeof ContradictionsRoute
   '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
+  '/evolution': typeof EvolutionRoute
+  '/financial': typeof FinancialRoute
+  '/geo': typeof GeoRoute
+  '/graph': typeof GraphRoute
   '/import': typeof ImportRoute
+  '/missing': typeof MissingRoute
+  '/reports': typeof ReportsRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contradictions': typeof ContradictionsRoute
   '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
+  '/evolution': typeof EvolutionRoute
+  '/financial': typeof FinancialRoute
+  '/geo': typeof GeoRoute
+  '/graph': typeof GraphRoute
   '/import': typeof ImportRoute
+  '/missing': typeof MissingRoute
+  '/reports': typeof ReportsRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/entities' | '/evidence' | '/import'
+  fullPaths:
+    | '/'
+    | '/contradictions'
+    | '/entities'
+    | '/evidence'
+    | '/evolution'
+    | '/financial'
+    | '/geo'
+    | '/graph'
+    | '/import'
+    | '/missing'
+    | '/reports'
+    | '/timeline'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/entities' | '/evidence' | '/import'
-  id: '__root__' | '/' | '/entities' | '/evidence' | '/import'
+  to:
+    | '/'
+    | '/contradictions'
+    | '/entities'
+    | '/evidence'
+    | '/evolution'
+    | '/financial'
+    | '/geo'
+    | '/graph'
+    | '/import'
+    | '/missing'
+    | '/reports'
+    | '/timeline'
+  id:
+    | '__root__'
+    | '/'
+    | '/contradictions'
+    | '/entities'
+    | '/evidence'
+    | '/evolution'
+    | '/financial'
+    | '/geo'
+    | '/graph'
+    | '/import'
+    | '/missing'
+    | '/reports'
+    | '/timeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContradictionsRoute: typeof ContradictionsRoute
   EntitiesRoute: typeof EntitiesRoute
   EvidenceRoute: typeof EvidenceRoute
+  EvolutionRoute: typeof EvolutionRoute
+  FinancialRoute: typeof FinancialRoute
+  GeoRoute: typeof GeoRoute
+  GraphRoute: typeof GraphRoute
   ImportRoute: typeof ImportRoute
+  MissingRoute: typeof MissingRoute
+  ReportsRoute: typeof ReportsRoute
+  TimelineRoute: typeof TimelineRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contradictions': {
+      id: '/contradictions'
+      path: '/contradictions'
+      fullPath: '/contradictions'
+      preLoaderRoute: typeof ContradictionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/entities': {
@@ -92,6 +216,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EvidenceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/evolution': {
+      id: '/evolution'
+      path: '/evolution'
+      fullPath: '/evolution'
+      preLoaderRoute: typeof EvolutionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/financial': {
+      id: '/financial'
+      path: '/financial'
+      fullPath: '/financial'
+      preLoaderRoute: typeof FinancialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/geo': {
+      id: '/geo'
+      path: '/geo'
+      fullPath: '/geo'
+      preLoaderRoute: typeof GeoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/graph': {
+      id: '/graph'
+      path: '/graph'
+      fullPath: '/graph'
+      preLoaderRoute: typeof GraphRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/import': {
       id: '/import'
       path: '/import'
@@ -99,14 +251,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/missing': {
+      id: '/missing'
+      path: '/missing'
+      fullPath: '/missing'
+      preLoaderRoute: typeof MissingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContradictionsRoute: ContradictionsRoute,
   EntitiesRoute: EntitiesRoute,
   EvidenceRoute: EvidenceRoute,
+  EvolutionRoute: EvolutionRoute,
+  FinancialRoute: FinancialRoute,
+  GeoRoute: GeoRoute,
+  GraphRoute: GraphRoute,
   ImportRoute: ImportRoute,
+  MissingRoute: MissingRoute,
+  ReportsRoute: ReportsRoute,
+  TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
