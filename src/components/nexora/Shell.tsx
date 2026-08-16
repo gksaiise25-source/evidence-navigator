@@ -10,11 +10,13 @@ import {
   History,
   LayoutDashboard,
   Map,
+  PenTool,
   Search,
   Settings,
   ShieldCheck,
   Upload,
   Users,
+  UsersRound,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { useNexora } from "@/lib/nexora/store";
@@ -34,6 +36,8 @@ const NAV = [
   { to: "/contradictions", label: "Contradictions", icon: AlertTriangle },
   { to: "/missing", label: "Missing Evidence", icon: Database },
   { to: "/ai", label: "AI Investigation", icon: Bot },
+  { to: "/canvas", label: "Investigation Canvas", icon: PenTool },
+  { to: "/collab", label: "Collaboration", icon: UsersRound },
   { to: "/reports", label: "Reports", icon: FileText },
   { to: "/settings", label: "Settings", icon: Settings },
 ] as const;

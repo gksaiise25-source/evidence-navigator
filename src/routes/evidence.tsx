@@ -18,7 +18,7 @@ export const Route = createFileRoute("/evidence")({
 });
 
 function EvidencePage() {
-  const { bundle } = useNexora();
+  const { bundle, toggleBookmark, logActivity } = useNexora();
   const [q, setQ] = useState("");
   const [type, setType] = useState("all");
   const [open, setOpen] = useState<string | null>(null);
@@ -74,7 +74,20 @@ function EvidencePage() {
               {a.deleted && <Tag tone="warn">DELETED / RECOVERED</Tag>}
               <span className="mono-xs text-muted-foreground">{fmt(a.ts)}</span>
               <span className="mono-xs text-cyber-dim">{a.source}</span>
-              <button onClick={() => setOpen(open === a.id ? null : a.id)} className="mono-xs ml-auto rounded border border-border px-2 py-0.5 hover:text-primary">
+              <button
+                onClick={() => void toggleBookmark(a.id)}
+                className={`mono-xs ml-auto rounded border px-2 py-0.5 ${(bundle.bookmarks ?? []).includes(a.id) ? "border-primary/60 bg-primary/10 text-primary" : "border-border hover:text-primary"}`}
+              >
+                {(bundle.bookmarks ?? []).includes(a.id) ? "BOOKMARKED" : "BOOKMARK"}
+              </button>
+              <button
+                onClick={() => {
+                  const next = open === a.id ? null : a.id;
+                  setOpen(next);
+                  if (next) void logActivity("EVIDENCE_VIEWED", `Raw artifact inspected: ${a.id} (${a.type})`, [a.id]);
+                }}
+                className="mono-xs rounded border border-border px-2 py-0.5 hover:text-primary"
+              >
                 {open === a.id ? "HIDE RAW" : "VIEW RAW"}
               </button>
             </div>

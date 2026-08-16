@@ -16,13 +16,16 @@ export const Route = createFileRoute("/reports")({
 });
 
 function ReportsPage() {
-  const { bundle } = useNexora();
+  const { bundle, logActivity } = useNexora();
   if (!bundle) return <NoCase />;
   return (
     <div>
       <PageHead title="Forensic Report" description="The report contains only findings backed by evidence IDs, plus every recorded human verification.">
-        <button onClick={() => generateReport(bundle)} className="glow rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
-          Generate PDF
+        <button onClick={() => {
+            generateReport(bundle);
+            void logActivity("REPORT_GENERATED", `5-page forensic summary generated for case ${bundle.id}`);
+          }} className="glow rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+          Generate 5-page PDF
         </button>
       </PageHead>
       <Panel title="Report contents preview">
@@ -32,6 +35,7 @@ function ReportsPage() {
           <li>{bundle.artifacts.length} artifacts · {bundle.entities.length} entities · {bundle.links.length} links</li>
           <li>{bundle.anomalies.length} investigative leads · {bundle.contradictions.length} contradictions</li>
           <li>{Object.keys(bundle.verdicts).length} human verification record(s)</li>
+          <li>{(bundle.canvases ?? []).length} investigation map(s) · {bundle.reportCanvasId ? "one attached to report" : "none attached to report"}</li>
           <li>{bundle.coverage.filter((c) => c.status !== "AVAILABLE").length} category/categories reported as not found</li>
         </ul>
       </Panel>

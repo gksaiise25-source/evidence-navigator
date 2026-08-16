@@ -32,6 +32,21 @@ function SettingsPage() {
     <div>
       <PageHead title="Settings" description="NEXORA never contacts a cloud service. The only optional network call is to your own machine's Ollama instance." />
       <div className="grid gap-4 xl:grid-cols-2">
+        <Panel title="Investigator identity" subtitle="Used to attribute every logged action, note, verification and canvas annotation">
+          <label className="block text-sm">
+            <span className="mono-xs text-muted-foreground">INVESTIGATOR NAME / ID</span>
+            <input
+              value={settings.investigator}
+              onChange={(e) => updateSettings({ ...settings, investigator: e.target.value })}
+              placeholder="e.g. Insp. R. Nair / BADGE-4417"
+              className="mt-1 w-full rounded border border-input bg-input/40 px-3 py-2 text-sm outline-none focus:border-primary"
+            />
+          </label>
+          <p className="mono-xs mt-2 text-muted-foreground">
+            Original evidence is immutable — identity is only attached to investigator overlays (log, notes, verdicts, canvas).
+          </p>
+        </Panel>
+
         <Panel title="Local reasoning bridge">
           <label className="block text-sm">
             <span className="mono-xs text-muted-foreground">OLLAMA URL</span>

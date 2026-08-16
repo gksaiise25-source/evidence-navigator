@@ -47,6 +47,7 @@ export const activeCaseId = {
 };
 
 export interface NexoraSettings {
+  investigator: string;
   ollamaUrl: string;
   ollamaModel: string;
   useLlm: boolean;
@@ -56,6 +57,7 @@ export interface NexoraSettings {
 
 const SETTINGS_KEY = "nexora.settings";
 export const defaultSettings: NexoraSettings = {
+  investigator: "",
   ollamaUrl: "http://localhost:11434",
   ollamaModel: "llama3.1",
   useLlm: true,
