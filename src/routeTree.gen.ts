@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AiRouteImport } from './routes/ai'
+import { Route as CanvasRouteImport } from './routes/canvas'
+import { Route as CollabRouteImport } from './routes/collab'
 import { Route as ContradictionsRouteImport } from './routes/contradictions'
 import { Route as EntitiesRouteImport } from './routes/entities'
 import { Route as EvidenceRouteImport } from './routes/evidence'
@@ -32,6 +34,16 @@ const IndexRoute = IndexRouteImport.update({
 const AiRoute = AiRouteImport.update({
   id: '/ai',
   path: '/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CanvasRoute = CanvasRouteImport.update({
+  id: '/canvas',
+  path: '/canvas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollabRoute = CollabRouteImport.update({
+  id: '/collab',
+  path: '/collab',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContradictionsRoute = ContradictionsRouteImport.update({
@@ -98,6 +110,8 @@ const TimelineRoute = TimelineRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ai': typeof AiRoute
+  '/canvas': typeof CanvasRoute
+  '/collab': typeof CollabRoute
   '/contradictions': typeof ContradictionsRoute
   '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
@@ -114,6 +128,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ai': typeof AiRoute
+  '/canvas': typeof CanvasRoute
+  '/collab': typeof CollabRoute
   '/contradictions': typeof ContradictionsRoute
   '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
@@ -131,6 +147,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/ai': typeof AiRoute
+  '/canvas': typeof CanvasRoute
+  '/collab': typeof CollabRoute
   '/contradictions': typeof ContradictionsRoute
   '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
@@ -149,6 +167,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/ai'
+    | '/canvas'
+    | '/collab'
     | '/contradictions'
     | '/entities'
     | '/evidence'
@@ -165,6 +185,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/ai'
+    | '/canvas'
+    | '/collab'
     | '/contradictions'
     | '/entities'
     | '/evidence'
@@ -181,6 +203,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/ai'
+    | '/canvas'
+    | '/collab'
     | '/contradictions'
     | '/entities'
     | '/evidence'
@@ -198,6 +222,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AiRoute: typeof AiRoute
+  CanvasRoute: typeof CanvasRoute
+  CollabRoute: typeof CollabRoute
   ContradictionsRoute: typeof ContradictionsRoute
   EntitiesRoute: typeof EntitiesRoute
   EvidenceRoute: typeof EvidenceRoute
@@ -226,6 +252,20 @@ declare module '@tanstack/react-router' {
       path: '/ai'
       fullPath: '/ai'
       preLoaderRoute: typeof AiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/canvas': {
+      id: '/canvas'
+      path: '/canvas'
+      fullPath: '/canvas'
+      preLoaderRoute: typeof CanvasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collab': {
+      id: '/collab'
+      path: '/collab'
+      fullPath: '/collab'
+      preLoaderRoute: typeof CollabRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contradictions': {
@@ -318,6 +358,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AiRoute: AiRoute,
+  CanvasRoute: CanvasRoute,
+  CollabRoute: CollabRoute,
   ContradictionsRoute: ContradictionsRoute,
   EntitiesRoute: EntitiesRoute,
   EvidenceRoute: EvidenceRoute,

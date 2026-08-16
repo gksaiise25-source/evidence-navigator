@@ -191,6 +191,109 @@ export interface CaseBundle {
   verdicts: Record<string, Verdict>;
   groundTruthFile: string | null;
   answers: SavedAnswer[];
+  activity?: ActivityEvent[];
+  notes?: CaseNote[];
+  bookmarks?: string[];
+  openQuestions?: OpenQuestion[];
+  canvases?: CanvasMap[];
+  reportCanvasId?: string | null | undefined;
+}
+
+export type ActivityAction =
+  | "CASE_IMPORTED"
+  | "QUERY"
+  | "EVIDENCE_VIEWED"
+  | "EVIDENCE_BOOKMARKED"
+  | "NOTE_ADDED"
+  | "LINK_ACCEPTED"
+  | "LINK_REJECTED"
+  | "LINK_REVIEW"
+  | "VERIFICATION_CLEARED"
+  | "REPORT_GENERATED"
+  | "CANVAS_SAVED"
+  | "CANVAS_CLEARED"
+  | "CANVAS_EXPORTED"
+  | "CANVAS_ATTACHED"
+  | "HANDOFF_UPDATED";
+
+export interface ActivityEvent {
+  id: string;
+  ts: number;
+  investigator: string;
+  action: ActivityAction;
+  detail: string;
+  evidenceIds: string[];
+}
+
+export interface CaseNote {
+  id: string;
+  investigator: string;
+  ts: number;
+  text: string;
+  evidenceIds: string[];
+}
+
+export interface OpenQuestion {
+  id: string;
+  investigator: string;
+  ts: number;
+  text: string;
+  resolved: boolean;
+}
+
+export type CanvasEdgeKind = "EVIDENCE" | "HYPOTHESIS" | "CONTRADICTION";
+
+export interface CanvasNode {
+  id: string;
+  kind: "entity" | "text" | "sticky" | "group";
+  entityId: string | null;
+  entityKind: string | null;
+  label: string;
+  x: number;
+  y: number;
+  w?: number;
+  h?: number;
+  evidenceIds: string[];
+  investigator: string;
+  ts: number;
+}
+
+export interface CanvasEdge {
+  id: string;
+  from: string;
+  to: string;
+  kind: CanvasEdgeKind;
+  label: string;
+  linkId: string | null;
+  evidenceIds: string[];
+  source: string | null;
+  ts: number | null;
+  confidence: number | null;
+  investigator: string;
+  createdAt: number;
+}
+
+export interface CanvasStroke {
+  id: string;
+  tool: "pencil" | "pen" | "highlighter";
+  points: number[];
+  color: string;
+  width: number;
+  investigator: string;
+  ts: number;
+}
+
+export interface CanvasMap {
+  id: string;
+  caseId: string;
+  name: string;
+  investigator: string;
+  createdAt: number;
+  updatedAt: number;
+  nodes: CanvasNode[];
+  edges: CanvasEdge[];
+  strokes: CanvasStroke[];
+  snapshot: string | null;
 }
 
 export type AnswerStatus = "ANSWERED" | "PARTIAL" | "DATA INSUFFICIENT";
