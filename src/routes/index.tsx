@@ -35,8 +35,8 @@ function Dashboard() {
     const timed = bundle.artifacts.filter((a) => a.ts !== null).map((a) => a.ts as number);
     return {
       byType: [...byType.entries()].sort((a, b) => b[1] - a[1]),
-      first: timed.length ? Math.min(...timed) : null,
-      last: timed.length ? Math.max(...timed) : null,
+      first: timed.length ? timed.reduce((m, v) => (v < m ? v : m), timed[0] as number) : null,
+      last: timed.length ? timed.reduce((m, v) => (v > m ? v : m), timed[0] as number) : null,
       geo: bundle.artifacts.filter((a) => a.lat !== null).length,
       deleted: bundle.artifacts.filter((a) => a.deleted).length,
     };

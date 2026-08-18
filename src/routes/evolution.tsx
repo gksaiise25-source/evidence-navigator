@@ -33,8 +33,8 @@ function EvolutionPage() {
           return (
             <Panel key={p.id} title={p.label} subtitle={`${links.length} linked identifier(s)`}>
               <p className="mono-xs text-muted-foreground">
-                FIRST SEEN {times.length ? fmt(Math.min(...times)) : "unknown"} · LAST SEEN{" "}
-                {times.length ? fmt(Math.max(...times)) : "unknown"}
+                FIRST SEEN {times.length ? fmt(times.reduce((m, v) => (v < m ? v : m), times[0] as number)) : "unknown"} · LAST SEEN{" "}
+                {times.length ? fmt(times.reduce((m, v) => (v > m ? v : m), times[0] as number)) : "unknown"}
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {links.map((l) => {

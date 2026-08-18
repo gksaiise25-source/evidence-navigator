@@ -20,10 +20,12 @@ export function MapView({
     if (!valid.length) return { items: [], bbox: null as null | number[] };
     const lats = valid.map((p) => p.lat as number);
     const lons = valid.map((p) => p.lon as number);
-    const minLat = Math.min(...lats);
-    const maxLat = Math.max(...lats);
-    const minLon = Math.min(...lons);
-    const maxLon = Math.max(...lons);
+    const minOf = (xs: number[]) => xs.reduce((m, v) => (v < m ? v : m), xs[0] as number);
+    const maxOf = (xs: number[]) => xs.reduce((m, v) => (v > m ? v : m), xs[0] as number);
+    const minLat = minOf(lats);
+    const maxLat = maxOf(lats);
+    const minLon = minOf(lons);
+    const maxLon = maxOf(lons);
     const spanLat = maxLat - minLat || 0.01;
     const spanLon = maxLon - minLon || 0.01;
     const items = valid.map((p) => ({
